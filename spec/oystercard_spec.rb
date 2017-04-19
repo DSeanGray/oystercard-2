@@ -12,5 +12,9 @@ describe Oystercard do
     expect{ subject.top_up(5) }.to change{ subject.balance }.by 5
   end
 
+  it "has a balance limit of 90" do
+    expect(Oystercard::BALANCE_LIMIT).to eq 90
+  end
+
 
 end
