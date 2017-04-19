@@ -9,6 +9,7 @@ class Oystercard
   end
 
   def top_up(amount)
+    raise "Balance cannot exceed #{BALANCE_LIMIT}" if @balance + amount > BALANCE_LIMIT
     @balance += amount
   end
 

@@ -16,5 +16,9 @@ describe Oystercard do
     expect(Oystercard::BALANCE_LIMIT).to eq 90
   end
 
+  it "raises exception when topped up over the balance limit" do
+    expect{ subject.top_up 91 }.to raise_error "Balance cannot exceed #{Oystercard::BALANCE_LIMIT}"
+  end
+
 
 end
