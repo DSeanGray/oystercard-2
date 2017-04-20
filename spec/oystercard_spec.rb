@@ -54,4 +54,13 @@ describe Oystercard do
 
   end
 
+  describe "journeys" do
+
+    it { is_expected.to respond_to :journeys }
+    it "has an empty list of journeys by default" do
+      expect(subject.journeys).to eq []
+    end
+
+  end
+
 end
