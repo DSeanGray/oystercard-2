@@ -29,7 +29,6 @@ class Oystercard
   def touch_in(station)
     raise "Insufficient funds" if @balance < MIN_FARE
     @entry_station = station
-    #@journeys << { :entry_station => station, :exit_station => :station }
     @in_journey = true
   end
 
