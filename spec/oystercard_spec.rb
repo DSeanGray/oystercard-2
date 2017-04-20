@@ -1,8 +1,8 @@
 require './lib/oystercard'
 
 describe Oystercard do
-
-  it { is_expected.to respond_to(:balance)}
+  limit = Oystercard::BALANCE_LIMIT
+  min_fare = Oystercard::MIN_FARE
 
   it "#balance" do
     expect(subject.balance).to eq(0)
@@ -13,11 +13,11 @@ describe Oystercard do
   end
 
   it "has a balance limit of 90" do
-    expect(Oystercard::BALANCE_LIMIT).to eq 90
+    expect(limit).to eq 90
   end
 
   it "raises exception when topped up over the balance limit" do
-    expect{ subject.top_up 91 }.to raise_error "Balance cannot exceed #{Oystercard::BALANCE_LIMIT}"
+    expect{ subject.top_up 91 }.to raise_error "Balance cannot exceed #{limit}"
   end
 
   it "#deduct" do
@@ -29,20 +29,29 @@ describe Oystercard do
     expect(subject.in_journey?).to eq(false)
   end
 
-
-  it {is_expected.to respond_to(:touch_in)}
-
   it "#touch_in" do
+    subject.top_up 5
     subject.touch_in
     expect(subject.in_journey?).to eq true
   end
 
-  it {is_expected.to respond_to(:touch_out)}
-
   it "#touch_out" do
+    subject.top_up 5
     subject.touch_in
     subject.touch_out
     expect(subject.in_journey?).to eq false
+  end
+
+  it "raises exception when trying to touch in with balance below 1" do
+    expect{ subject.touch_in }.to raise_error "Insufficient funds"
+  end
+
+  it "has a minimum fare of 1" do
+    expect(min_fare).to eq 1
+  end
+
+  it "deducts fare when touch_out" do
+    expect{ subject.touch_out }.to change{ subject.balance }.by -min_fare
   end
 
 
