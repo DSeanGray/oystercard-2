@@ -44,7 +44,6 @@ describe Oystercard do
       subject.touch_out :station
       expect(subject.exit_station).to eq :station
     end
-
   end
 
   describe "Top up" do
