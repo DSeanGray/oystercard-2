@@ -25,5 +25,27 @@ describe Oystercard do
     expect{ subject.deduct(20) }.to change{ subject.balance }.by -20
   end
 
+  it "#in_journey?" do
+    expect(subject.in_journey?).to eq(false)
+  end
+
+
+  it {is_expected.to respond_to(:touch_in)}
+
+  it "#touch_in" do
+    subject.touch_in
+    expect(subject.in_journey?).to eq true
+  end
+
+  it {is_expected.to respond_to(:touch_out)}
+
+  it "#touch_out" do
+    subject.touch_in
+    subject.touch_out
+    expect(subject.in_journey?).to eq false
+  end
+
+
+
 
 end
