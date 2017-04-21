@@ -29,4 +29,21 @@ describe Journey do
      end
    end
 
+   describe '#fare' do
+     context 'when a journey is complete' do
+     it 'returns the single journey fare' do
+       subject.start_journey("Bank")
+       subject.finish_journey("Holborn")
+       expect(subject.fare).to eq 1
+     end
+   end
+
+   context 'when a journey is not complete' do
+     it 'returns the single journey penalty fare' do
+       subject.start_journey("Bank")
+       expect(subject.fare).to eq 6
+     end
+   end
+ end
+
 end

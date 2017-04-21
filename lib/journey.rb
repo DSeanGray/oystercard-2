@@ -19,4 +19,7 @@ class Journey
     @journeys.length == 2 ? true : false
   end
 
+  def fare
+    journey_complete? ? 1 : 6
+  end
 end
