@@ -1,4 +1,5 @@
 require_relative 'station'
+require_relative 'journey'
 
 class Oystercard
 
@@ -10,7 +11,6 @@ class Oystercard
   def initialize
     @balance = 0
     @in_journey = false
-    @entry_station = :station
     @exit_station = :station
     @journeys = []
   end
@@ -30,7 +30,8 @@ class Oystercard
 
   def touch_in(station)
     raise "Insufficient funds" if @balance < MIN_FARE
-    @entry_station = station
+    journey = Journey.new
+    journey.start_journey
     @in_journey = true
   end
 
