@@ -17,16 +17,11 @@ describe Oystercard do
       expect{ subject.touch_in(:station) }.to raise_error "Insufficient funds"
     end
 
-    it "records station name on touch in" do
-      subject.top_up 1
-      subject.touch_in(:station)
-      expect(subject.entry_station).to eq :station
-    end
-
   end
 
   describe "Touch out" do
-
+    let(:journey) {journey = double}
+    let(:station) {station = double}
     it "#touch_out" do
       subject.top_up 1
       subject.touch_in(:station)
@@ -35,6 +30,7 @@ describe Oystercard do
     end
 
     it "deducts fare when touch_out" do
+      allow(:journey).to receive(:finish_journey).with(station)
       expect{ subject.touch_out(:station) }.to change{ subject.balance }.by -min_fare
     end
 
