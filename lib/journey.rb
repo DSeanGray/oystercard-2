@@ -15,4 +15,8 @@ class Journey
     @journeys[:exit_station] = station
   end
 
+  def journey_complete?
+    @journeys.length == 2 ? true : false
+  end
+
 end

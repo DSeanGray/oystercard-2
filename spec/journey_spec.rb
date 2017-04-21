@@ -23,11 +23,9 @@ describe Journey do
 
    describe "#journey_complete?" do
      it 'checks if a journey has been completed' do
-       card = Oystercard.new
-       card.top_up(10)
-       card.touch_in('Bank')
-       card.touch_out('Borough')
-       expect (subject.journey_complete?).to eq true
+       subject.start_journey("Bank")
+       subject.finish_journey("Holborn")
+       expect(subject.journey_complete?).to be true
      end
    end
 
